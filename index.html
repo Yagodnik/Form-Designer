@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>HTML5 Project</title>
+</head>
+<body>
+  <div class="elelemnts">
+      <button onclick="newButton();">Button</button><br>
+      <button onclick="newLabel();">Label</button><br>
+      <button onclick="newInput();">Input</button><br>
+  </div>
+
+  <div class="data">
+      <input type="text" class="text" placeholder="text"><br>
+      <input type="text" class="x" placeholder="x position"><br>
+      <input type="text" class="y" placeholder="y position"><br>
+      <input type="button" class="build" value="Build Form"><br>
+  </div>
+
+  <div class="form"></div>
+
+  <script type="text/javascript">
+    function update(){
+        for(var i = 0;i < document.getElementsByClassName("drag").length; i++){
+            document.getElementsByClassName("drag")[i].ondrag = function(e){
+                e.preventDefault();
+                this.style.position = "absolute";
+                this.style.top = (e.pageY).toString() + "px";
+                this.style.left = (e.pageX).toString() + "px";
+                //debugger;
+                //return false;
+            }
+
+            document.getElementsByClassName("drag")[i].ondragend = function(e){
+                e.preventDefault();
+                this.style.position = "absolute";
+                this.style.top = (e.pageY).toString() + "px";
+                this.style.left = (e.pageX).toString() + "px";
+                //debugger;
+                //return false;
+            }
+
+            document.getElementsByClassName("drag")[i].onclick = function(e){
+                this.innerText = document.getElementsByClassName("text")[0].value;
+                this.style.top = document.getElementsByClassName("y")[0].value + "px";
+                this.style.left = document.getElementsByClassName("x")[0].value + "px";
+            }
+        }
+    }
+
+    update();
+
+    function newButton(){
+        document.getElementsByClassName("form")[0].innerHTML += "<button class='drag' draggable='true'>button</button>";
+        update();
+    }
+
+    function newLabel(){
+        document.getElementsByClassName("form")[0].innerHTML += "<label class='drag' draggable='true'>label</label>";
+        update();
+    }
+
+    function newInput(){
+        document.getElementsByClassName("form")[0].innerHTML += "<input class='drag' draggable='true'>";
+        update();
+    }
+
+    document.getElementsByClassName("build")[0].onclick = function(e){
+        var fs = require("fs");
+        fs.writeFile("E:/Projects/FormDesinger/form.html",document.getElementsByClassName("form")[0].innerHTML , function (err) {
+            if (err) console.log(err);
+        });
+    }
+  </script>
+</body>
+</html>
