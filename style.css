@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #2f2f2f;
+}
+
+.data {
+    height: 200px;
+    /*overflow-y: scroll;*/
+    position:fixed;
+    top:42%;
+    left:0;
+}
+
+.data > input{
+    background:#404040;
+    border:1px solid #404040;
+    border-radius: 45px;
+    color:white;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #5e5e5e;
+    opacity: 1; 
+    /* Firefox */
+}
+
+.elelemnts {
+    height: 200px;
+    /*overflow-y: scroll;*/
+}
+
+.elelemnts > button{
+    width: 100%;
+    background: #404040;
+    border:1px solid #404040;
+    border-radius: 45px;
+    color: white;
+}
+
+.formd {
+    position:relative;
+    top:0%;
+    left:0;
+    width: 40%;
+    height: 100%;
+}
+
+.form {
+    position: fixed;
+    top:0;
+    left:40%;
+    width:100%;
+    height:100%;
+    background-color: white;
+    overflow: hidden;
+    /*overflow: scroll;*/
+}
+
+.form > button, input, textarea {
+    z-index: 10;
+}
+
+.selectbar {
+    z-index: 12;
+}

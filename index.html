@@ -2,75 +2,191 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>HTML5 Project</title>
+	<title>Form Desinger</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="elelemnts">
-      <button onclick="newButton();">Button</button><br>
-      <button onclick="newLabel();">Label</button><br>
-      <button onclick="newInput();">Input</button><br>
-  </div>
-
-  <div class="data">
-      <input type="text" class="text" placeholder="text"><br>
-      <input type="text" class="x" placeholder="x position"><br>
-      <input type="text" class="y" placeholder="y position"><br>
-      <input type="button" class="build" value="Build Form"><br>
-  </div>
+    <div class="formd">
+      <div class="elelemnts">
+          <button onclick="newButton();">Button</button><br>
+          <button onclick="newLabel();">Label</button><br>
+          <button onclick="newInput();">Input</button><br>
+          <button onclick="newCheckBox();">CheckBox</button><br>
+          <button onclick="newRadioBox();">RadioBox</button><br>
+          <button onclick="newTextArea();">TextArea</button><br>
+          <button onclick="newImage();">Image</button><br>
+      </div>
+    
+      <div class="data">
+          <input type="text" class="input text" placeholder="text" value="Text..."><br>
+          <input type="text" class="input x" placeholder="x position"><br>
+          <input type="text" class="input y" placeholder="y position"><br>
+          <input type="text" class="input w" placeholder="width"><br>
+          <input type="text" class="input h" placeholder="height"><br>
+          <input type="text" class="input fs" placeholder="font size"><br>
+          <input type="text" class="input fn" placeholder="font name"><br>
+          <input type="text" class="input id" placeholder="id of element"><br>
+          <input type="text" class="input src" placeholder="image path" value="Image path here"><br>
+          <input type="button" class="build" value="Build Form">
+          <input type="button" class="open" value="Open Form"><br>
+          <input type="button" class="remove" value="Remove">
+          <input type="button" class="apply" value="Apply"><br>
+      </div>
+    </div>
 
   <div class="form"></div>
 
   <script type="text/javascript">
+    var offsetX = document.getElementsByClassName("form")[0].clientWidth / 2;
+    var offsetY = 0;
+    var element;
+    var oldElem = 0;
+    var num = 0;
+  
     function update(){
         for(var i = 0;i < document.getElementsByClassName("drag").length; i++){
+            num = i;
+            
             document.getElementsByClassName("drag")[i].ondrag = function(e){
                 e.preventDefault();
                 this.style.position = "absolute";
-                this.style.top = (e.pageY).toString() + "px";
-                this.style.left = (e.pageX).toString() + "px";
-                //debugger;
-                //return false;
+                this.style.top = (e.pageY - offsetY).toString() + "px";
+                this.style.left = (e.pageX - offsetX).toString() + "px";
+            }
+            
+            document.getElementsByClassName("drag")[i].ondragstart = function(e){
+                var crt = this.cloneNode(true);
+                crt.className = "";
+                crt.style.backgroundColor = "red";
+                crt.style.display = "none"; /* or visibility: hidden, or any of the above */
+                document.body.appendChild(crt);
+                e.dataTransfer.setDragImage(crt, 0, 0);
             }
 
             document.getElementsByClassName("drag")[i].ondragend = function(e){
                 e.preventDefault();
                 this.style.position = "absolute";
-                this.style.top = (e.pageY).toString() + "px";
-                this.style.left = (e.pageX).toString() + "px";
-                //debugger;
-                //return false;
+                this.style.top = (e.pageY - offsetY).toString() + "px";
+                this.style.left = (e.pageX - offsetX).toString() + "px";
             }
 
             document.getElementsByClassName("drag")[i].onclick = function(e){
-                this.innerText = document.getElementsByClassName("text")[0].value;
-                this.style.top = document.getElementsByClassName("y")[0].value + "px";
-                this.style.left = document.getElementsByClassName("x")[0].value + "px";
+                //document.getElementsByClassName("drag")[oldElem].style.background = "";
+                element = this;
+                //element.style.backgroundColor = "gray";
+                //oldElem = num;
             }
+        }
+    }
+    
+    document.getElementsByClassName("remove")[0].onclick = function(e){
+        element.remove();
+    }
+    
+    document.getElementsByClassName("apply")[0].onclick = function(e){
+        element.innerText = document.getElementsByClassName("text")[0].value;
+        element.style.top = document.getElementsByClassName("y")[0].value + "px";
+        element.style.left = document.getElementsByClassName("x")[0].value + "px";
+        element.style.width = document.getElementsByClassName("w")[0].value + "px";
+        element.style.height = document.getElementsByClassName("h")[0].value + "px";
+        element.style.fontFamily = document.getElementsByClassName("fn")[0].value;
+        element.style.fontSize = document.getElementsByClassName("fs")[0].value + "px";
+        element.id = document.getElementsByClassName("id")[0].value;
+    }
+    
+    window.onresize = function(){
+        offsetX = document.getElementsByClassName("form")[0].clientWidth / 2;
+        offsetY = 0;
+        
+        for(var i = 0;i < document.getElementsByClassName("input").length;i++){
+            document.getElementsByClassName("input")[i].style.width = (document.getElementsByClassName("formd")[0].clientWidth) + "px";
         }
     }
 
     update();
 
     function newButton(){
-        document.getElementsByClassName("form")[0].innerHTML += "<button class='drag' draggable='true'>button</button>";
+        document.getElementsByClassName("form")[0].innerHTML += "<button class='drag' draggable='true'>button</button>\n";
         update();
     }
 
     function newLabel(){
-        document.getElementsByClassName("form")[0].innerHTML += "<label class='drag' draggable='true'>label</label>";
+        document.getElementsByClassName("form")[0].innerHTML += "<label class='drag' draggable='true'>label</label>\n";
         update();
     }
 
     function newInput(){
-        document.getElementsByClassName("form")[0].innerHTML += "<input class='drag' draggable='true'>";
+        document.getElementsByClassName("form")[0].innerHTML += "<input class='drag' draggable='true'>\n";
+        update();
+    }
+    
+    function newCheckBox(){
+        document.getElementsByClassName("form")[0].innerHTML += "<input class='drag' draggable='true' type='checkbox'>\n";
+        update();
+    }
+    
+    function newRadioBox(){
+        document.getElementsByClassName("form")[0].innerHTML += "<input class='drag' draggable='true' type='radio'>\n";
+        update();
+    }
+    
+    function newTextArea(){
+        document.getElementsByClassName("form")[0].innerHTML += "<textarea class='drag' draggable='true'></textarea>\n";
+        update();
+    }
+    
+    function newImage(){
+        document.getElementsByClassName("form")[0].innerHTML += "<img src='" + document.getElementsByClassName("src")[0].value + "' class='drag' draggable='true'/>\n";
         update();
     }
 
     document.getElementsByClassName("build")[0].onclick = function(e){
-        var fs = require("fs");
-        fs.writeFile("E:/Projects/FormDesinger/form.html",document.getElementsByClassName("form")[0].innerHTML , function (err) {
-            if (err) console.log(err);
-        });
+        var input = document.createElement('input');
+        input.type = 'file';
+
+        input.onchange = function () {
+            if (this.value == '') return;
+            openedFile = this.value;
+            
+            var form = document.getElementsByClassName("form")[0].innerHTML;
+            
+            /*var inputs = document.getElementsByClassName("form")
+            
+            for(var i = 0; i < b.length;i++){
+                b[i].className = "abc";
+            }*/
+            
+            var fs = require("fs");
+            fs.writeFile(openedFile,form , function (err) {
+                if (err) console.log(err);
+            });
+        };
+
+        input.click();
+    }
+    
+    document.getElementsByClassName("open")[0].onclick = function(e){
+        var input = document.createElement('input');
+        input.type = 'file';
+
+        input.onchange = function () {
+            if (this.value == '') return;
+            openedFile = this.value;
+            
+            var filename = openedFile.replace(/^.*[\\\/]/, '');
+
+            var fr = new FileReader();
+            fr.onload = function (info) {
+                document.getElementsByClassName("form")[0].innerHTML = info.target.result.toString();
+            };
+            fr.readAsText(this.files[0]);
+        };
+
+        input.click();
+    }    
+    
+    for(var i = 0;i < document.getElementsByClassName("input").length;i++){
+        document.getElementsByClassName("input")[i].style.width = (document.getElementsByClassName("formd")[0].clientWidth) + "px";
     }
   </script>
 </body>
