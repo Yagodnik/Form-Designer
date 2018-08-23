@@ -75,6 +75,14 @@
                 element = this;
                 //element.style.backgroundColor = "gray";
                 //oldElem = num;
+                document.getElementsByClassName("text")[0].value = element.innerText;
+                document.getElementsByClassName("y")[0].value = element.style.top;
+                document.getElementsByClassName("x")[0].value = element.style.left;
+                document.getElementsByClassName("w")[0].value = element.style.width;
+                document.getElementsByClassName("h")[0].value = element.style.height;
+                document.getElementsByClassName("fn")[0].value = element.style.fontFamily;
+                document.getElementsByClassName("fs")[0].value = element.style.fontSize;
+                document.getElementsByClassName("id")[0].value = element.id;
             }
         }
     }
