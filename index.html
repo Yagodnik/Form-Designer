@@ -30,7 +30,8 @@
           <input type="button" class="build" value="Build Form">
           <input type="button" class="open" value="Open Form"><br>
           <input type="button" class="remove" value="Remove">
-          <input type="button" class="apply" value="Apply"><br>
+          <input type="button" class="apply" value="Apply">
+          <input type="button" class="help" value="Help"><br>
       </div>
     </div>
 
@@ -46,6 +47,7 @@
     function update(){
         for(var i = 0;i < document.getElementsByClassName("drag").length; i++){
             num = i;
+            if(element != undefined) element.className = "drag";
             
             document.getElementsByClassName("drag")[i].ondrag = function(e){
                 e.preventDefault();
@@ -71,9 +73,12 @@
             }
 
             document.getElementsByClassName("drag")[i].onclick = function(e){
+                if(this === element) return;
                 //document.getElementsByClassName("drag")[oldElem].style.background = "";
+                //this.style.backgroundColor = "gray";
+                if(element != undefined) element.className = "drag";
+                this.className += " active";
                 element = this;
-                //element.style.backgroundColor = "gray";
                 //oldElem = num;
                 document.getElementsByClassName("text")[0].value = element.innerText;
                 document.getElementsByClassName("y")[0].value = element.style.top;
@@ -114,36 +119,43 @@
     update();
 
     function newButton(){
+        if(element != undefined) element.className = "drag";
         document.getElementsByClassName("form")[0].innerHTML += "<button class='drag' draggable='true'>button</button>\n";
         update();
     }
 
     function newLabel(){
+        if(element != undefined) element.className = "drag";
         document.getElementsByClassName("form")[0].innerHTML += "<label class='drag' draggable='true'>label</label>\n";
         update();
     }
 
     function newInput(){
+        if(element != undefined) element.className = "drag";
         document.getElementsByClassName("form")[0].innerHTML += "<input class='drag' draggable='true'>\n";
         update();
     }
     
     function newCheckBox(){
+        if(element != undefined) element.className = "drag";
         document.getElementsByClassName("form")[0].innerHTML += "<input class='drag' draggable='true' type='checkbox'>\n";
         update();
     }
     
     function newRadioBox(){
+        if(element != undefined) element.className = "drag";
         document.getElementsByClassName("form")[0].innerHTML += "<input class='drag' draggable='true' type='radio'>\n";
         update();
     }
     
     function newTextArea(){
+        if(element != undefined) element.className = "drag";
         document.getElementsByClassName("form")[0].innerHTML += "<textarea class='drag' draggable='true'></textarea>\n";
         update();
     }
     
     function newImage(){
+        if(element != undefined) element.className = "drag";
         document.getElementsByClassName("form")[0].innerHTML += "<img src='" + document.getElementsByClassName("src")[0].value + "' class='drag' draggable='true'/>\n";
         update();
     }
@@ -155,7 +167,7 @@
         input.onchange = function () {
             if (this.value == '') return;
             openedFile = this.value;
-            
+            if(element != undefined) element.className = "drag";
             var form = document.getElementsByClassName("form")[0].innerHTML;
             
             /*var inputs = document.getElementsByClassName("form")
@@ -191,10 +203,33 @@
         };
 
         input.click();
-    }    
+    }  
     
-    for(var i = 0;i < document.getElementsByClassName("input").length;i++){
-        document.getElementsByClassName("input")[i].style.width = (document.getElementsByClassName("formd")[0].clientWidth) + "px";
+    document.getElementsByClassName("help")[0].onclick = function(e){
+        alert(`Как использовать редактор?
+                -В левом углу находится паналь для управления формой.
+                -В верхнем левом углу находится список компонентов.
+                -В нижнем левом углу находится настройки компонента.
+                ======================================
+                Как применить настройки на компонент?
+                -Кликнети на интересуеший вас компонент и нажмите кнопку "apply" в настройках компонента.
+                ======================================
+                Как применить удалить на компонент?
+                -Кликнети на интересуеший вас компонент и нажмите кнопку "remove" в настройках компонента.
+                ======================================
+                Как применить сохранить и открыть форму?
+                -Для открутия нажмите на кнопку "Open Form"
+                -Для сохранения нажмите на кнопку "Build Form"
+                ======================================
+        `);
+    }
+    
+    document.getElementsByClassName("form")[0].onclick = function(e){
+        //if(element != undefined) element.className = "drag";
+    }
+    
+    for(var j = 0;j < document.getElementsByClassName("input").length;j++){
+        document.getElementsByClassName("input")[j].style.width = (document.getElementsByClassName("formd")[0].clientWidth) + "px";
     }
   </script>
 </body>
