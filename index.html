@@ -198,9 +198,9 @@
             var fr = new FileReader();
             fr.onload = function (info) {
                 document.getElementsByClassName("form")[0].innerHTML = info.target.result.toString();
+                update();
             };
             fr.readAsText(this.files[0]);
-            update();
         };
 
         input.click();
