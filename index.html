@@ -200,6 +200,7 @@
                 document.getElementsByClassName("form")[0].innerHTML = info.target.result.toString();
             };
             fr.readAsText(this.files[0]);
+            update();
         };
 
         input.click();
