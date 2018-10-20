@@ -5,7 +5,7 @@ body {
 }
 
 .data {
-    height: 200px;
+    height: 100px;
     /*overflow-y: scroll;*/
     position:fixed;
     top:42%;
@@ -26,7 +26,7 @@ body {
 }
 
 .elelemnts {
-    height: 200px;
+    height: 100px;
     /*overflow-y: scroll;*/
 }
 
@@ -50,11 +50,11 @@ body {
     position: fixed;
     top:0;
     left:40%;
-    width:100%;
+    width:40%;
     height:100%;
     background-color: white;
-    overflow: hidden;
     /*overflow: scroll;*/
+    overflow: hidden;
 }
 
 .form > button, input, textarea {
@@ -69,7 +69,34 @@ body {
     box-shadow: 0 0 25px gray;
 }
 
+.edata {
+    position: fixed;
+    top:0;
+    left:80%;
+    width: 20%;
+    height: 100%;
+    background: #2f2f2f;
+}
 
+.css {
+    resize: none;
+    color:white;
+    background: #404040;
+}
+
+.js {
+    resize: none;
+    color:white;
+    background: #404040;
+}
+
+.edata > button {
+    width: 100%;
+    background: #404040;
+    border:1px solid #404040;
+    border-radius: 45px;
+    color: white;
+}
 
 
 

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Form Desinger</title>
+	<title>Formio</title>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,6 +15,7 @@
           <button onclick="newRadioBox();">RadioBox</button><br>
           <button onclick="newTextArea();">TextArea</button><br>
           <button onclick="newImage();">Image</button><br>
+          <!--<button onclick="newLink();">Link</button><br>-->
       </div>
     
       <div class="data">
@@ -34,6 +35,13 @@
           <input type="button" class="help" value="Help"><br>
       </div>
     </div>
+    
+    <div class="edata">
+         <textarea style="width:100%; height:40%;" class="css"></textarea><br>
+         <button onclick="element.className = 'drag'; element = undefined;">Deselect</button><br>
+         <!--<button class="copy">Copy</button><br>
+         <button class="paste">Pase</button><br>-->
+    </div>
 
   <div class="form"></div>
 
@@ -43,6 +51,8 @@
     var element;
     var oldElem = 0;
     var num = 0;
+    
+    var startX, startY, endX, endY;
   
     function update(){
         for(var i = 0;i < document.getElementsByClassName("drag").length; i++){
@@ -50,26 +60,39 @@
             if(element != undefined) element.className = "drag";
             
             document.getElementsByClassName("drag")[i].ondrag = function(e){
+                var x = e.pageX - document.getElementsByClassName("form")[0].offsetLeft;
+                var y = e.pageY - document.getElementsByClassName("form")[0].offsetTop;
                 e.preventDefault();
                 this.style.position = "absolute";
-                this.style.top = (e.pageY - offsetY).toString() + "px";
-                this.style.left = (e.pageX - offsetX).toString() + "px";
+                //this.style.top = (e.clientY - offsetY).toString() + "px";
+                //this.style.left = (e.clientX - offsetX).toString() + "px";
+                this.style.top = y + "px";
+                this.style.left = x + "px";
             }
             
             document.getElementsByClassName("drag")[i].ondragstart = function(e){
+                startX = e.pageX;
+                startY = e.pageY;
                 var crt = this.cloneNode(true);
                 crt.className = "";
                 crt.style.backgroundColor = "red";
                 crt.style.display = "none"; /* or visibility: hidden, or any of the above */
                 document.body.appendChild(crt);
                 e.dataTransfer.setDragImage(crt, 0, 0);
+                offsetX = document.getElementsByClassName("form")[0].clientWidth / 2;
             }
 
             document.getElementsByClassName("drag")[i].ondragend = function(e){
+                endX = e.pageX;
+                endY = e.pageY;
+                var x = e.pageX - document.getElementsByClassName("form")[0].offsetLeft;
+                var y = e.pageY - document.getElementsByClassName("form")[0].offsetTop;
                 e.preventDefault();
                 this.style.position = "absolute";
-                this.style.top = (e.pageY - offsetY).toString() + "px";
-                this.style.left = (e.pageX - offsetX).toString() + "px";
+                //this.style.top = (e.clientY - offsetY).toString() + "px";
+                //this.style.left = (e.clientX - offsetX).toString() + "px";
+                this.style.top = y + "px";
+                this.style.left = x + "px";
             }
 
             document.getElementsByClassName("drag")[i].onclick = function(e){
@@ -88,6 +111,9 @@
                 document.getElementsByClassName("fn")[0].value = element.style.fontFamily;
                 document.getElementsByClassName("fs")[0].value = element.style.fontSize;
                 document.getElementsByClassName("id")[0].value = element.id;
+                document.getElementsByClassName("id")[0].value = element.id;
+                document.getElementsByClassName("css")[0].value = element.style.cssText;
+                offsetX = document.getElementsByClassName("form")[0].clientWidth / 2;
             }
         }
     }
@@ -97,6 +123,7 @@
     }
     
     document.getElementsByClassName("apply")[0].onclick = function(e){
+        element.style.cssText = document.getElementsByClassName("css")[0].value;
         element.innerText = document.getElementsByClassName("text")[0].value;
         element.style.top = document.getElementsByClassName("y")[0].value + "px";
         element.style.left = document.getElementsByClassName("x")[0].value + "px";
@@ -117,7 +144,7 @@
     }
 
     update();
-
+    ///Components
     function newButton(){
         if(element != undefined) element.className = "drag";
         document.getElementsByClassName("form")[0].innerHTML += "<button class='drag' draggable='true'>button</button>\n";
@@ -159,7 +186,26 @@
         document.getElementsByClassName("form")[0].innerHTML += "<img src='" + document.getElementsByClassName("src")[0].value + "' class='drag' draggable='true'/>\n";
         update();
     }
-
+    
+    function newLink(){
+        if(element != undefined) element.className = "drag";
+        document.getElementsByClassName("form")[0].innerHTML += "<a href='" + document.getElementsByClassName("src")[0].value + "' class='drag' draggable='true'>Link</a>\n";
+        update();
+    }
+    
+    var c = "";
+    
+    /*document.getElementsByClassName("copy")[0].onclick = function(e){
+        element.className = "drag";
+        c = element;
+        element.className += " active";
+    }
+    
+    document.getElementsByClassName("paste")[0].onclick = function(e){
+        document.getElementsByClassName("form")[0].innerHTML += c.outerHTML;
+    }*/
+    
+    ///API
     document.getElementsByClassName("build")[0].onclick = function(e){
         var input = document.createElement('input');
         input.type = 'file';
