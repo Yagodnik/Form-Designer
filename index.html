@@ -28,9 +28,9 @@
           <input type="text" class="input fn" placeholder="font name"><br>
           <input type="text" class="input id" placeholder="id of element"><br>
           <input type="text" class="input src" placeholder="image path" value="Image path here"><br>
-          <input type="button" class="build" value="Build Form">
+          <input type="button" class="build" value="Build Form"><br>
           <input type="button" class="open" value="Open Form"><br>
-          <input type="button" class="remove" value="Remove">
+          <input type="button" class="remove" value="Remove"><br>
           <input type="button" class="apply" value="Apply">
           <input type="button" class="help" value="Help"><br>
       </div>
@@ -38,9 +38,10 @@
     
     <div class="edata">
          <textarea style="width:100%; height:40%;" class="css"></textarea><br>
+         <textarea style="width:100%; height:40%;" class="css"></textarea><br>
          <button onclick="element.className = 'drag'; element = undefined;">Deselect</button><br>
-         <!--<button class="copy">Copy</button><br>
-         <button class="paste">Pase</button><br>-->
+         <button class="copy">Copy</button><br>
+         <button class="paste">Pase</button><br>
     </div>
 
   <div class="form"></div>
@@ -195,15 +196,18 @@
     
     var c = "";
     
-    /*document.getElementsByClassName("copy")[0].onclick = function(e){
-        element.className = "drag";
+    document.getElementsByClassName("copy")[0].onclick = function(e){
+        //element.className = "drag";
         c = element;
-        element.className += " active";
+        //c.className += " active";
     }
     
     document.getElementsByClassName("paste")[0].onclick = function(e){
+        //c.className += " drag";
+        element = undefined;
         document.getElementsByClassName("form")[0].innerHTML += c.outerHTML;
-    }*/
+        //element = c;
+    }
     
     ///API
     document.getElementsByClassName("build")[0].onclick = function(e){

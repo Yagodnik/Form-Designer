@@ -1,4 +1,5 @@
 {
   "name" : "Formio",
-  "main" : "index.html"
+  "main" : "index.html",
+  "devtools" : "true"
 }
